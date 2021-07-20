@@ -10,12 +10,14 @@ import 'react-toastify/dist/ReactToastify.min.css'
 const Signup = () => {
     const [values, setValues] = useState({
         name: '',
+        surname: '',
         email: '',
         password: '',
+        phone: '',
         buttonText: 'Registrar'
     });
 
-    const {name,email,password,buttonText} = values
+    const {name,surname,email,password,phone,buttonText} = values
 
     const handleChange = (name) => (event) => {
         //console.log(event.target.value)
@@ -28,11 +30,11 @@ const Signup = () => {
         axios({
             method: 'POST',
             url: `${process.env.REACT_APP_API}/signup`,
-            data: {name, email,password}
+            data: {name,surname, email,password,phone}
         })
         .then(response => {
             console.log('SIGNUP SUCCESS', response)
-            setValues({...values,name: '',email: '',password: '', buttonText:'Registrado'})
+            setValues({...values,name: '',surname: '',email: '',password: '',phone: '', buttonText:'Registrado'})
             toast.success(response.data.message)
         })
         .catch(error => {
@@ -50,6 +52,11 @@ const Signup = () => {
             </div>
 
             <div className="form-group">
+                <label className="text-muted">Apellidos</label>
+                <input onChange={handleChange('surname')} value={surname} type="text" className="form-control" />
+            </div>
+
+            <div className="form-group">
                 <label className="text-muted">Email</label>
                 <input onChange={handleChange('email')} value={email} type="email" className="form-control" />
             </div>
@@ -57,6 +64,11 @@ const Signup = () => {
             <div className="form-group">
                 <label className="text-muted">Contraseña</label>
                 <input onChange={handleChange('password')} value={password} type="password" className="form-control" />
+            </div>
+
+            <div className="form-group">
+                <label className="text-muted">Número de Teléfono</label>
+                <input onChange={handleChange('phone')} value={phone} type="number" className="form-control" />
             </div>
 
             <div>

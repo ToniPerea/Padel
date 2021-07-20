@@ -9,8 +9,8 @@ import 'react-toastify/dist/ReactToastify.min.css'
 
 const Signin = ({history}) => {
     const [values, setValues] = useState({
-        email: 'antonioperea31@gmail.com',
-        password: 'rrrrrr',
+        email: 'antonio@gmail.com',
+        password: '123456',
         buttonText: 'Iniciar Sesión'
     });
 

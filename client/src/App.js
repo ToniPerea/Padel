@@ -4,7 +4,7 @@ import Layout from "./core/Layout";
 const App = () => {
   return (
     <Layout>
-      <h1>Hello React!</h1>
+      <h1>Hello Padel!</h1>
     </Layout>
   );
 };

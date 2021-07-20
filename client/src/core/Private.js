@@ -11,9 +11,11 @@ const Private = ({history}) => {
     const [values, setValues] = useState({
         role: '',
         name: '',
+        surname: '',
         email: '',
+        phone:'',
         password: '',
-        buttonText: 'Enviar'
+        buttonText: 'Actualizar'
     });
 
     const token = getCookie('token');
@@ -33,8 +35,8 @@ const Private = ({history}) => {
         })
         .then(response =>{
             console.log('PRIVATE PROFILE UPDATE', response)
-            const {role, name, email} = response.data
-            setValues({...values, role, name, email})
+            const {role, name, email,surname,phone} = response.data
+            setValues({...values, role, name, email,surname,phone})
         })
         .catch(error => {
             console.log('PRIVATE PROFILE UPDATE ERROR', error.response.data.error)
@@ -46,7 +48,7 @@ const Private = ({history}) => {
         })
     }
 
-    const {role,name,email,password,buttonText} = values
+    const {role,name,surname,phone,email,password,buttonText} = values
 
     const handleChange = (name) => (event) => {
         //console.log(event.target.value)
@@ -62,7 +64,7 @@ const Private = ({history}) => {
             headers: {
                 Authorization: `Bearer ${token}`
             },
-            data: {name, password}
+            data: {name,surname,phone, password}
         })
         .then(response => {
             console.log('PRIVATE PROFILE UPDATE SUCCESS', response)
@@ -91,8 +93,18 @@ const Private = ({history}) => {
             </div>
 
             <div className="form-group">
+                <label className="text-muted">Apellidos</label>
+                <input onChange={handleChange('surname')} value={surname} type="text" className="form-control" />
+            </div>
+
+            <div className="form-group">
                 <label className="text-muted">Email</label>
                 <input defaultValue={email} type="email" className="form-control" disabled/>
+            </div>
+
+            <div className="form-group">
+                <label className="text-muted">Número de Teléfono</label>
+                <input onChange={handleChange('phone')} value={phone} type="number" className="form-control" />
             </div>
 
             <div className="form-group">
@@ -112,7 +124,7 @@ const Private = ({history}) => {
     return (<Layout>
         <div className="col-md-6 offset-md-3">
         <ToastContainer />
-        <h1 className="pt-5 text-center">Private</h1>
+        <h1 className="pt-5 text-center">Datos de Usuario</h1>
         <p className="lead text-center">Actualización de Datos</p>
         {updateForm()}
         </div>

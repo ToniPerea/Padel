@@ -10,7 +10,7 @@ const expressJwt = require('express-jwt');
 
  exports.signup = (req, res) => {
    //console.log('REQ BODY ON SIGNUP', req.body);
-   const { name, email, password } = req.body;
+   const { name,surname, email, password, phone } = req.body;
 
    User.findOne({ email: email }).exec((err, user) => {
      if (user) {
@@ -20,7 +20,7 @@ const expressJwt = require('express-jwt');
      }
    });
 
-   let newUser = new User({ name, email, password });
+   let newUser = new User({ name,surname, email, password, phone });
 
    newUser.save((err, success) => {
      if (err) {

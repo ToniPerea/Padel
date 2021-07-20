@@ -18,12 +18,12 @@ exports.read = (req,res) => {
 
 exports.update = (req,res) => {
     //console.log('UPDATE USER - req.user', req.user, 'UPDATE DATA', req.body);
-    const {name, password} = req.body
+    const {name,surname,phone, password} = req.body
 
     User.findOne({_id: req.user._id}, (err,user) => {
         if(err || !user) {
             return res.status(400).json({
-                error: 'user not found'
+                error: 'User not found'
             })
         }
         if(!name) {
@@ -39,10 +39,26 @@ exports.update = (req,res) => {
             user.name = name
         }
 
+        if(!surname) {
+            return res.status(400).json({
+                error: 'Surname is required'
+            })
+        } else {
+            user.surname = surname
+        }
+
+        if(!phone) {
+            return res.status(400).json({
+                error: 'Phone is required'
+            })
+        } else {
+            user.phone = phone
+        }
+
         if(password) {
             if(password.length < 6){
                 return res.status(400).json({
-                    error: 'Passwrod should be min 6 characters long'
+                    error: 'Password should be min 6 characters long'
                 })
             } else{
                 user.passwrod = password
